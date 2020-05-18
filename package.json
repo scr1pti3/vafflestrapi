@@ -9,7 +9,9 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "cross-env": "^7.0.2"
+  },
   "dependencies": {
     "strapi": "3.0.0-beta.20.3",
     "strapi-admin": "3.0.0-beta.20.3",
