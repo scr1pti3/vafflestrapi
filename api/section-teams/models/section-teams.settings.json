@@ -1,0 +1,19 @@
+{
+  "kind": "singleType",
+  "collectionName": "section_teams",
+  "info": {
+    "name": "section_teams"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "heading": {
+      "type": "string"
+    },
+    "subheading": {
+      "type": "string"
+    }
+  }
+}

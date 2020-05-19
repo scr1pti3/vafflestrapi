@@ -1,0 +1,16 @@
+{
+  "kind": "singleType",
+  "collectionName": "section_services",
+  "info": {
+    "name": "section_services"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "subheading": {
+      "type": "string"
+    }
+  }
+}

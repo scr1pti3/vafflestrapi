@@ -14,10 +14,12 @@ module.exports = {
       phone,
       text
     } = ctx.request.body;
-    const to = "hgdzwlcvjwehltuicg@ttirv.com";
+    const to = process.env.ORG_EMAIL || "contact@vafflehauz.org";
+    const from = email;
+    console.log('controllers', from);
 
     const subject = "Submission Form";
 
-    return strapi.services.email.sendEmail(to, subject, text);
+    return strapi.services.email.sendEmail(to, subject, from,text);
   }
 };

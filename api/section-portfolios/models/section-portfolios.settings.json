@@ -1,0 +1,16 @@
+{
+  "kind": "singleType",
+  "collectionName": "section_portfolios",
+  "info": {
+    "name": "section_portfolios"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true
+  },
+  "attributes": {
+    "subheading": {
+      "type": "string"
+    }
+  }
+}
