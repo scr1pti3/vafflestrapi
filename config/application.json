@@ -1,6 +1,6 @@
 {
   "favicon": {
-    "path": "./favicon.ico",
+    "path": "./public/favicon.ico",
     "maxAge": 86400000
   },
   "public": {
