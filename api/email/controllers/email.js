@@ -5,13 +5,14 @@
  * to customize this controller
  */
 
-const replyEmail = process.env.REPLY_EMAIL || "no-reply@vafflehauz.org";
-const companyEmail = process.env.COMPANY_EMAIL || "raznan@vafflehauz.org";
+const replyEmail = process.env.REPLY_EMAIL || "no-reply@vafflehauz.com";
+const companyEmail = process.env.COMPANY_EMAIL || "roxmagis@ymail.com";
 
 module.exports = {
   async send(ctx) {
     try {
-      console.log("/api/email/controller/email.js ctx.request.body", ctx.request.body);
+      strapi.log.info("POST /email-send RECEIVED");
+      console.log(ctx.request.body);
       const {
         name: visitorName,
         email: visitorEmail,
@@ -39,6 +40,8 @@ module.exports = {
       return await strapi.services.email.sendEmail(companyMsg, visitorMsg);
     } catch (err) {
       ctx.response.status = 503;
+      console.error(err[0]);
+      //console.log(err[0].messages);
       return err;
     }
   }
