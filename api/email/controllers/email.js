@@ -5,21 +5,41 @@
  * to customize this controller
  */
 
+const replyEmail = process.env.REPLY_EMAIL || "no-reply@vafflehauz.org";
+const companyEmail = process.env.COMPANY_EMAIL || "raznan@vafflehauz.org";
+
 module.exports = {
-  send(ctx) {
-    console.log("/api/email/controller/email.js ctx.request.body",ctx.request.body);
-    const {
-      name,
-      email,
-      phone,
-      text
-    } = ctx.request.body;
-    const to = process.env.ORG_EMAIL || "contact@vafflehauz.org";
-    const from = email;
-    console.log('controllers', from);
+  async send(ctx) {
+    try {
+      console.log("/api/email/controller/email.js ctx.request.body", ctx.request.body);
+      const {
+        name: visitorName,
+        email: visitorEmail,
+        phone: visitorPhone,
+        text: visitorMsgText
+      } = ctx.request.body;
 
-    const subject = "Submission Form";
+      const companyMsg = {
+        to: visitorEmail,
+        from: replyEmail,
+        subject: "We got your message!",
+        template: "vafflehauz_auto_reply",
+        "v:name": visitorName,
+        "v:businessHours": "9 AM - 5 PM"
+      };
 
-    return strapi.services.email.sendEmail(to, subject, from,text);
+      const visitorMsg = {
+        to: companyEmail,
+        from: visitorEmail,
+        replyTo: visitorEmail,
+        subject: "Submission Form",
+        text: `${visitorMsgText} Phone: ${visitorPhone}`
+      };
+
+      return await strapi.services.email.sendEmail(companyMsg, visitorMsg);
+    } catch (err) {
+      ctx.response.status = 503;
+      return err;
+    }
   }
 };
