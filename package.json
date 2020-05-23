@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "mailgun-js": "^0.22.0",
+    "nodemailer": "^6.4.6",
     "strapi": "3.0.0-beta.20.3",
     "strapi-admin": "3.0.0-beta.20.3",
     "strapi-connector-mongoose": "3.0.0-beta.20.3",

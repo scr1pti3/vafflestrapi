@@ -6,21 +6,17 @@
  */
 
 const replyEmail = process.env.REPLY_EMAIL || "no-reply@vafflehauz.com";
-const companyEmail = process.env.COMPANY_EMAIL || "roxmagis@ymail.com";
 
 module.exports = {
   async send(ctx) {
     try {
-      strapi.log.info("POST /email-send RECEIVED");
-      console.log(ctx.request.body);
+      strapi.log.info("POST /email-send RECEIVED", ctx.request.body);
       const {
         name: visitorName,
         email: visitorEmail,
-        phone: visitorPhone,
-        text: visitorMsgText
       } = ctx.request.body;
 
-      const companyMsg = {
+      const companyData = {
         to: visitorEmail,
         from: replyEmail,
         subject: "We got your message!",
@@ -29,20 +25,14 @@ module.exports = {
         "v:businessHours": "9 AM - 5 PM"
       };
 
-      const visitorMsg = {
-        to: companyEmail,
-        from: visitorEmail,
-        replyTo: visitorEmail,
-        subject: "Submission Form",
-        text: `${visitorMsgText} Phone: ${visitorPhone}`
-      };
-
-      return await strapi.services.email.sendEmail(companyMsg, visitorMsg);
+      await strapi.services.email.create(ctx.request.body);
+      await strapi.services.email.sendEmail(companyData);
+      return {message: "Query sent."};
     } catch (err) {
       ctx.response.status = 503;
-      console.error(err[0]);
-      //console.log(err[0].messages);
-      return err;
+
+      strapi.log.error(err);
+      return {message: "Query failed to send, try again later."};
     }
   }
 };
